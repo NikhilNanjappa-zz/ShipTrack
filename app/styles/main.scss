@@ -1,0 +1,52 @@
+body {
+  background: #ececec;
+}
+
+.ship-container {
+  margin: 10px auto 40px;
+  padding: 20px 20px 0;
+  overflow: hidden;
+  background: #ececec;
+
+  .search-container, .sort-container {
+    margin: 30px;
+
+    button {
+      outline: 0;
+
+      &.btn-danger {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .pagination-container {
+    margin-bottom: 30px;
+    text-align: right;
+  }
+
+  .ship-wrapper {
+    width: 100%;
+    padding: 20px;
+    margin: 0 0 20px 0;
+    background: white;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px #bbb;
+
+    .ship-details {
+      h3 {
+        color: #0066b2;
+        margin-top: 0;
+      }
+
+      p {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Media Queries
+
+@media (max-width: 768px) {  }

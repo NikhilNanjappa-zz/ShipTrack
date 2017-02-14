@@ -1,0 +1,98 @@
+<div class="search-container row">
+  <div class="col-md-6 col-sm-6 col-xs-12">
+    <label>Filter by Name</label>
+    <input type="search" placeholder="Filter by Name" class="form-control" ng-model="search.name"/>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-12">
+    <label>Filter by Country Check Severity</label>
+    <input type="search" placeholder="Filter by Country Check Severity" class="form-control" ng-model="search.country_check_severity"/>
+  </div>
+</div>
+
+<div class="row sort-container">
+  <div class="col-md-12 col-ms-12 col-xs-12">
+    <label>Toggle the buttons to sort / unsort by</label><br/>
+    <button class="btn" ng-click="sorted('name')" ng-class="sortByName ? 'btn-primary' : 'btn-disable'">Name</button>
+    <button class="btn" ng-click="sorted('created')" ng-class="sortByCreated ? 'btn-primary' : 'btn-disable'">Created</button>
+    <button class="btn" ng-click="sorted('modified')" ng-class="sortByModified ? 'btn-primary' : 'btn-disable'">Modified</button>
+    <button class="btn btn-danger" ng-click="reset()">Reset</button>
+  </div>
+</div>
+
+<div class="col-md-12 pagination-container">
+  <button class="btn btn-primary" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+    Previous
+  </button>
+  <b>{{currentPage+1}}/{{numberOfPages()}}</b>
+  <button class="btn btn-primary" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+    Next
+  </button>
+</div>
+
+<div class="row ship-wrapper" ng-repeat="s in screenings | filter:search | orderBy:sortBy:reverse | startFrom:currentPage*pageSize | limitTo:pageSize">
+  <div class="col-md-4 col-sm-12">
+    <img src="../images/ship.png">
+  </div>
+  <div class="col-md-8 col-sm-12 ship-details">
+    <h3>{{ s.name }}</h3>
+
+    <p>Created : <span>{{s.created | date:'MMMM dd, yyyy -- hh:mm:ss a'}}</span></p>
+
+    <p>Modified : <span>{{s.modified | date: 'MMMM dd, yyyy -- hh:mm:ss a'}}</span></p>
+
+    <p>Country Check Severity : <span class="label label-default"
+                                      ng-class="{'label-danger' : (s.country_check_severity.indexOf('CRITICAL') > 0),
+                                      'label-warning' : (s.country_check_severity.indexOf('WARNING') > 0),
+                                      'label-success' : (s.country_check_severity.indexOf('OK') > 0)}">
+      {{ s.country_check_severity }}</span>
+    </p>
+
+    <p>Ship Sanction Prior Months : <span class="badge">{{ s.ship_sanction_prior_months }}</span></p>
+
+    <p>Country Sanction Check Severity : <span class="label label-default"
+                                      ng-class="{'label-danger' : (s.ship_sanction_check_severity.indexOf('CRITICAL') > 0),
+                                      'label-warning' : (s.ship_sanction_check_severity.indexOf('WARNING') > 0),
+                                      'label-success' : (s.ship_sanction_check_severity.indexOf('OK') > 0)}">
+      {{ s.ship_sanction_check_severity }}</span>
+    </p>
+
+    <p>Port Visit Severity : <span class="label label-default"
+                                               ng-class="{'label-danger' : (s.port_visit_severity.indexOf('CRITICAL') > 0),
+                                      'label-warning' : (s.port_visit_severity.indexOf('WARNING') > 0),
+                                      'label-success' : (s.port_visit_severity.indexOf('OK') > 0)}">
+      {{ s.port_visit_severity }}</span>
+    </p>
+
+    <p>Zone Severity : <span class="label label-default"
+                                   ng-class="{'label-danger' : (s.zone_severity.indexOf('CRITICAL') > 0),
+                                      'label-warning' : (s.zone_severity.indexOf('WARNING') > 0),
+                                      'label-success' : (s.zone_severity.indexOf('OK') > 0)}">
+      {{ s.zone_severity }}</span>
+    </p>
+
+    <p>Ship Inspection Detained : <span class="label label-default"
+                             ng-class="{'label-danger' : (s.ship_inspection_detained.indexOf('CRITICAL') > 0),
+                                      'label-warning' : (s.ship_inspection_detained.indexOf('WARNING') > 0),
+                                      'label-success' : (s.ship_inspection_detained.indexOf('OK') > 0)}">
+      {{ s.ship_inspection_detained }}</span>
+    </p>
+
+    <p>Ship Inspection Deficiency : <span class="label label-default"
+                                        ng-class="{'label-danger' : (s.ship_inspection_deficiency.indexOf('CRITICAL') > 0),
+                                      'label-warning' : (s.ship_inspection_deficiency.indexOf('WARNING') > 0),
+                                      'label-success' : (s.ship_inspection_deficiency.indexOf('OK') > 0)}">
+      {{ s.ship_inspection_deficiency }}</span>
+    </p>
+
+  </div>
+</div>
+
+<div class="row pagination-container">
+  <button class="btn btn-primary" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+    Previous
+  </button>
+  <b>{{currentPage+1}}/{{numberOfPages()}}</b>
+  <button class="btn btn-primary" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+    Next
+  </button>
+</div>
